@@ -1,23 +1,21 @@
-<%
-let actionURL = book.available ? '/books/borrow/' + book.id : '/books/return/' + book.id;
-let borrowDisabled = !book.available ? 'disabled' : '';
-let returnDisabled = (!book.available && didUserBorrowTheBook) ? '' : 'disabled';
-%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="../../public/css/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
+
+    <link rel="stylesheet" type="text/css" href="../../public/css/styles.css">
 </head>
 <body>
-<h1><%= book.title %> by <%= book.author %></h1>
-<p>Year: <%= book.year %></p>
+<%- include('partials/back') %>
+<h1>${book.title} by ${book.author}</h1>
+<p>Year: ${book.year}</p>
 <p>Status: <%= book.available ? 'Available' : 'Borrowed' %></p>
-<form action="<%= actionURL %>" method="POST">
-    <button type="submit" <%= borrowDisabled %>>Borrow Book</button>
-    <button type="submit" <%= returnDisabled %>>Return Book</button>
-</form>
 
-<%- include partials/back.ejs %>
+<form action="<%= book.available ? '/books/borrow/' + book.id : '/books/return/' + book.id %>" method="POST">
+    <button type="submit" <%= book.available ? '' : 'disabled' %>>Borrow Book</button>
+    <button type="submit" <%= book.available && didUserBorrowTheBook ? '' : 'disabled' %>>Return Book</button>
+</form>
 </body>
 </html>
