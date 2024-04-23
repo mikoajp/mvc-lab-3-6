@@ -1,0 +1,23 @@
+<%
+let actionURL = book.available ? '/books/borrow/' + book.id : '/books/return/' + book.id;
+let borrowDisabled = !book.available ? 'disabled' : '';
+let returnDisabled = (!book.available && didUserBorrowTheBook) ? '' : 'disabled';
+%>
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../../public/css/styles.css">
+    <title><%= title %></title>
+</head>
+<body>
+<h1><%= book.title %> by <%= book.author %></h1>
+<p>Year: <%= book.year %></p>
+<p>Status: <%= book.available ? 'Available' : 'Borrowed' %></p>
+<form action="<%= actionURL %>" method="POST">
+    <button type="submit" <%= borrowDisabled %>>Borrow Book</button>
+    <button type="submit" <%= returnDisabled %>>Return Book</button>
+</form>
+
+<%- include partials/back.ejs %>
+</body>
+</html>
